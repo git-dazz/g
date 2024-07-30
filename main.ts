@@ -22,7 +22,7 @@ app.get('/*',async (c) => {
   let url = `https://raw.githubusercontent.com`+c.req.path;
   let ctwant=c.req.query('ct');
   let {txt,ct} = await fetchText(url);
-  c.res.headers.set("Content-Type",ctwant||ct);
+  c.header("Content-Type",ctwant||ct);
   let head = `/*\n${url}\n${ct}==>${ctwant||ct}\n*/\n\n`;
   return c.text(head+txt);
 })
