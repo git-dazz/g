@@ -20,11 +20,11 @@ async function fetchText(url, opt) {
 app.get('/*',async (c) => {
   // https://raw.githubusercontent.com/git-dazz/dist/main/deno/fast.ts
   let url = `https://raw.githubusercontent.com`+c.req.path;
-  let ctwant=c.req.query('ct');
   let {txt,ct} = await fetchText(url);
-  c.header("Content-Type",ctwant||ct);
-  let head = `/*\n${url}\n${ct}==>${ctwant||ct}\n*/\n\n`;
-  return c.text(head+txt);
+  let ctwant= decodeURIComponent(c.req.query('ct')||ct);
+  c.header("Content-Type",ctwant);
+  let head = `/*\n${url}\n${ct}==>${ctwant}\n*/\n\n`;
+  return c.body(head+txt);
 })
 
 Deno.serve(app.fetch)
