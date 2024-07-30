@@ -16,7 +16,7 @@ async function fetchText(url, opt) {
     return txt;
 }
 
-app.get('/*', (c) => {
+app.get('/*',async (c) => {
   // https://raw.githubusercontent.com/git-dazz/dist/main/deno/fast.ts
   let url = `https://raw.githubusercontent.com`+c.req.path;
   let txt = await fetchText(url);
