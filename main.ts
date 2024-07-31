@@ -19,7 +19,7 @@ async function fetchText(url, opt) {
 
 app.get('/raw/*',async (c) => {
   // https://raw.githubusercontent.com/git-dazz/dist/main/deno/fast.ts
-  let url = `https://raw.githubusercontent.com`+c.req.path;
+  let url = `https://raw.githubusercontent.com`+c.req.path.replace("/raw","");
   let {txt,ct} = await fetchText(url);
   let ctwant= decodeURIComponent(c.req.query('ct')||ct);
   c.header("Content-Type",ctwant);
